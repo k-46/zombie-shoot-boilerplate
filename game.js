@@ -1,7 +1,12 @@
 const gameBody = document.getElementById("game-body");
-
+const any = document.getElementById("lives");
 
 // Iteration 1: Declare variables required for this game
+
+function width(){
+    let size = lives*25;
+    any.style.width=size;
+}
 
 // Iteration 1.2: Add shotgun sound
 
@@ -10,13 +15,13 @@ gameBody.onclick = () =>{
     // shotGunSound.pause();
     shotGunSound.currentTime=0;
     shotGunSound.play();
-}
+};
 
 // Iteration 1.3: Add background sound
 
 let backGroundMusic = new Audio("./assets/bgm.mp3");
-backGroundMusic.play()
-backGroundMusic.loop=true
+backGroundMusic.play();
+backGroundMusic.loop=true;
 
 // Iteration 1.4: Add lives
 
@@ -38,13 +43,13 @@ function generateZombies(){
     
     zombie.onclick=()=>{
             destroyZombie(zombie);
-    }
+    };
 }
 
 generateZombies();
 
 function generateUniqueNums(min,max){
-    return Math.floor(Math.random()*(max-min))+min
+    return Math.floor(Math.random()*(max-min))+min;
 }
 
 
@@ -57,9 +62,9 @@ function destroyZombie(ghost){
 function zombieEscape(anything){
     if(anything.getBoundingClientRect().top<=0){
         lives--;
-        
+        width();
         if(lives<=0){
-            location.href = "./game-over.html"
+            location.href = "./game-over.html";
         }
         else{
         destroyZombie(anything);    
@@ -68,19 +73,23 @@ function zombieEscape(anything){
 }
 
 
-zombieEscape(zombie)
+zombieEscape(zombie);
 
 let time =60;
-setInterval(timer,1000)
+setInterval(timer,1000);
 
 function timer(){
     document.getElementById("timer").innerText=time;
     if(time<=0){
         location.href = "./win.html";
     }else{
-        time--
-        zombieEscape(zombie);
+        time--;
     }
+}
+
+setInterval(check,100)
+function check(){
+    zombieEscape(zombie);
 }
 
 
